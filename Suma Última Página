@@ -1,0 +1,18 @@
+//NOTA: SumaYsigueBOT es el nombre del campo de la suma de la página anterior
+
+//Get previous page
+var CurrentPage = xfa.layout.absPage(this);
+var CurrentPage_Index = Number( CurrentPage.toString() );
+var PreviousPage_Index = CurrentPage_Index - 1;
+
+//Get Bottom page subtotal
+var FieldList = xfa.layout.pageContent( PreviousPage_Index, "field", true);
+var FieldListLength = FieldList.length; 
+
+for (var FieldListCount = 0; FieldListCount < FieldListLength; FieldListCount++) {
+  if (FieldList.item(FieldListCount).name == "SumaYsigueBOT") { 
+    PreviousPageSubtotal = FieldList.item(FieldListCount).rawValue;
+  }        
+}
+
+this.rawValue = parseFloat(PreviousPageSubtotal);
