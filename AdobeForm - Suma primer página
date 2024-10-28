@@ -1,0 +1,17 @@
+//Get current page
+var currentPage = xfa.layout.absPage(this);
+var currentPage_Index = currentPage.toString();
+
+//Sum TOTAL_AMOUNT fields
+var oFields = xfa.layout.pageContent(currentPage, "field"); 
+var nNodesLength = oFields.length; 
+var oTotalAmountFloat = parseFloat(0.00);
+
+for (var nNodeCount = 0; nNodeCount < nNodesLength; nNodeCount++) {
+  if ((oFields.item(nNodeCount).name == "Importe") || (oFields.item(nNodeCount).name == "Valor") 
+  || (oFields.item(nNodeCount).name == "FLETE") || (oFields.item(nNodeCount).name == "SEGURO")
+  || (oFields.item(nNodeCount).name == "OTROS")){ 
+    oTotalAmountFloat += parseFloat(oFields.item(nNodeCount).rawValue.replace('.','').replace(',','.'));
+   }   
+ }
+ this.rawValue = oTotalAmountFloat;
