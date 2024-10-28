@@ -1,0 +1,37 @@
+//NOTA: SumaYsigueBOT es el nombre del campo suma de la página anterior
+
+ data.#pageSet[0].PáginaIntermedia.SumaYsigueBOT::initialize - (JavaScript, client)
+
+//Get previous page
+var CurrentPage = xfa.layout.absPage(this);
+var CurrentPage_Index = Number( CurrentPage.toString() );
+var PreviousPage_Index = CurrentPage_Index - 1;
+var PreviousPageSubtotal = 0;  
+
+//Get Bottom page subtotal
+var FieldList = xfa.layout.pageContent( PreviousPage_Index, "field", true);
+var FieldListLength = FieldList.length; 
+
+for (var FieldListCount = 0; FieldListCount < FieldListLength; FieldListCount++) {
+  if (FieldList.item(FieldListCount).name == "SumaYsigueBOT") { 
+    PreviousPageSubtotal = FieldList.item(FieldListCount).rawValue;
+  }        
+}
+
+//Get current page
+var currentPage = xfa.layout.absPage(this);
+var currentPage_Index = currentPage.toString();
+
+//Sum TOTAL_AMOUNT fields
+var oFields = xfa.layout.pageContent(currentPage, "field"); 
+var nNodesLength = oFields.length; 
+var oTotalAmountFloat = Number(0);
+
+for (var nNodeCount = 0; nNodeCount < nNodesLength; nNodeCount++) {
+  if ((oFields.item(nNodeCount).name == "Importe") || (oFields.item(nNodeCount).name == "Valor") 
+  || (oFields.item(nNodeCount).name == "FLETE") || (oFields.item(nNodeCount).name == "SEGURO")
+  || (oFields.item(nNodeCount).name == "OTROS")){ 
+   oTotalAmountFloat += parseFloat(oFields.item(nNodeCount).rawValue.replace('.','').replace(',','.'));
+   }    
+}
+this.rawValue = parseFloat(oTotalAmountFloat) + parseFloat(PreviousPageSubtotal);
