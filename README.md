@@ -6,4 +6,5 @@ Para que el código funcione, tener en cuenta los siguientes aspectos:
 - Todos los campos que se quieren sumar son tipo string, en el código está puesta la forma de pasarlo a numérico para que no de error
 - CUIDADO CON LAS MAYÚSCULAS
 - Si la suma resultante es un número entero, no mostrará los decimales
+- Los campos no pueden estar vacíos (el valor puede ser 0)
 - En el ejemplo, se ha sumado el valor de los siguientes campos: Importe, Valor, Flete, Seguro y Otros
